@@ -6,13 +6,13 @@ from pprint import pformat, pprint
 from bs4 import BeautifulSoup
 
 _BASE = "https://coinmarketcap.com"
-_SLUGS = None
+SLUGS = {}
 
 __author__ = "Calvin Kinateder"
 __email__ = "calvinkinateder@gmail.com"
 
 # get slugs
-def getSlugs(filename=None, loud=False):
+def fetchSlugs(filename=None, loud=False):
     """
     Get slugs from coinmarketcap and return a dictionary of form.
     Will save to filename as well.
@@ -48,10 +48,36 @@ def getSlugs(filename=None, loud=False):
     if filename:
         with open(filename.strip() + ".json", "w+") as outfile:
             json.dump((coins), outfile)
-    globals()["_SLUGS"] = coins
+    globals()["SLUGS"] = coins
     return coins
 
 
+def loadSlugs(filename):
+    """
+    Load slugs from a json file [filename].
+    """
+    with open(
+        filename.strip().replace(".json", "") + ".json"
+    ) as f:  # replacing json incase its passed twice
+        globals()["SLUGS"] = json.load(f)
+    return globals()["SLUGS"]
+
+
+def __fetchSingleSymbol(symbol):
+    if symbol in SLUGS:
+        slug = SLUGS[symbol]
+        print(slug)
+    else:
+        return False
+
+
+def fetchSymbols(symbols):
+    if type(symbols) == str:  # single
+        pass
+    elif type(symbols) == list:  # multiple
+        pass
+
+
 if __name__ == "__main__":
-    getSlugs()
-    pprint(_SLUGS)
+    loadSlugs("slugs")
+    pprint(SLUGS)
