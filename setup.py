@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Calvin Kinateder",
     author_email="calvinkinateder@gmail.com",
-    description="A custom API wrapper for coinmarketcap to avoid paying $79 a month for access",
+    description="A custom API wrapper for coinmarketcap.com to avoid paying $79 a month for access",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pypa/sampleproject",
